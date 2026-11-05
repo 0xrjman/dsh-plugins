@@ -27,8 +27,15 @@ After changing plugin sources, run **remove → install** again: the loader re-r
 
 ## Third-party plugins
 
-Third-party code is not vendored by default.
+Third-party code is not vendored by default. It is pinned, not tracking.
 
-- [`dsh-remote`](https://github.com/flymysql/dsh-remote) (MIT) — SSH and remote-workspace toolchain. Currently installed as a normal npm dependency resolved from the profile lockfile.
+- [`dsh-remote`](https://github.com/flymysql/dsh-remote) (MIT) — SSH and remote-workspace toolchain, pinned to the exact version `0.8.72` in the profile `package.json`. The profile lockfile records the tarball integrity hash, so nothing moves until the pin is bumped by hand.
 
-Any third-party plugin we need to audit or patch locally is pulled in as a git submodule pinned to an exact commit, so it changes only when the pin is deliberately bumped.
+Bumping a pinned plugin is a deliberate review step:
+
+1. Read the upstream diff for the target version (`git log` / release notes between the two tags)
+2. Rewrite the exact version in the profile `package.json` (no `^`, no `~`)
+3. `pnpm install` so the lockfile re-resolves version and integrity hash
+4. Restart DSH
+
+If a third-party plugin ever has to be patched locally, it stops being a pinned dependency and becomes a git submodule at an exact commit instead.
