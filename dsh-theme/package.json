@@ -1,0 +1,25 @@
+{
+  "name": "@local/dsh-theme",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "dsh-theme: fixed wallpaper layer, translucent panel surfaces, and a warm dark theme token palette.",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": ["@deepseek-ai/dsh-client-locale"]
+    }
+  }
+}

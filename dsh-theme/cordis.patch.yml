@@ -1,0 +1,4 @@
+- insert:
+    - id: dsh-theme
+      name: '@local/dsh-theme'
+      config: {}
